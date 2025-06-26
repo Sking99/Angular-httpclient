@@ -74,4 +74,13 @@ export class TaskService {
       return throwError(()=> err)
     }))
   }
+
+  getTaskDetails(id: string | undefined){
+    return this.http.get('https://angular20httpclient-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/'+ id +'.json')
+      .pipe(catchError((err)=>{
+        const errorObj = {statusCode: err.status, errorMessage: err.message, dateTime: new Date()};
+        this.logService.logError(errorObj);
+        return throwError(()=> err);
+      }))
+  }
 }

@@ -15,6 +15,7 @@ import { TaskDetails } from './task-details/task-details';
 })
 export class Dashboard implements OnInit, OnDestroy{
   showCreateTaskForm: boolean = false;
+  showTaskDetails: boolean = false;
   taskList: Task[] = [];
   currentTaskId: string | undefined;
   editMode: boolean = false;
@@ -102,5 +103,12 @@ export class Dashboard implements OnInit, OnDestroy{
     this.editMode = true;
     this.showCreateTaskForm = true;
     this.selectedTask = this.taskList.find((task)=> task.id === id);
+  }
+
+  showTask(id: string | undefined){
+    this.showTaskDetails = true;
+    this.taskService.getTaskDetails(id).subscribe((data)=>{
+      this.selectedTask = data as Task;
+    })
   }
 }
